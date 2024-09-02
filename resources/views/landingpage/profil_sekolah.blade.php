@@ -22,11 +22,11 @@
                             <button class="btn btn-outline-light rounded-pill">Login</button>
                         </a>
                     </div>
-                    <div class="navbar-nav">
+                    <!-- <div class="navbar-nav">
                         <a href="{{url('/register')}}" class="nav-link">
                             <button class="btn btn-outline-light rounded-pill">Register</button>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
             </nav>
         </div>

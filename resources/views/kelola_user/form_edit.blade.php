@@ -23,56 +23,27 @@ $ar_siswa = App\Models\Siswa::all();
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Nama</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="nama" value="{{ $row->nama }}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Username</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="name" value="{{ $row->username }}" class="form-control">
+                                    <input type="text" name="username" value="{{ $row->username }}" class="form-control">
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Pengguna (Guru)</label>
+                                <label class="col-sm-2 col-form-label">Password</label>
                                 <div class="col-sm-10">
-                                    <select class="form-select" name="id_guru">
-                                        <option selected>-- Pilih Pengguna (Guru) --</option>
-                                        @foreach($ar_guru as $gru)
-                                        @php $pil = ($gru->id == $row->id_guru) ? 'selected' : ''; @endphp
-                                        <option value="{{ $gru->id }}" {{ $pil }}>{{ $gru->nama_guru }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Pengguna (Siswa)</label>
-                                <div class="col-sm-10">
-                                    <select class="form-select" name="id_siswa">
-                                        <option selected>-- Pilih Pengguna (Siswa) --</option>
-                                        @foreach($ar_siswa as $sis)
-                                        @php $pil2 = ($sis->id == $row->id_siswa) ? 'selected' : ''; @endphp
-                                        <option value="{{ $sis->id }}" {{ $pil2 }}>{{ $sis->nama_siswa }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Isactive</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="isactive" value="{{ $row->isactive }}" class="form-control">
+                                    <input type="password" name="password" value="{{ $row->password }}" class="form-control">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Role</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="role" value="{{ $row->role }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="inputNumber" class="col-sm-2 col-form-label">Foto</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" type="file" name="foto">
-                                    @if (!empty($row->foto))
-                                        <img src="{{ url('admin/img') }}/{{ $row->foto }}" width="10%"
-                                            class="img-thumbnail">
-                                        <br />{{ $row->foto }}
-                                    @endif
+                                    <input type="text" name="role" value="{{ $row->role }}" class="form-control" disabled>
                                 </div>
                             </div>
                             <div class="row mb-3">

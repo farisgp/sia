@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\MataPelajaran;
-use App\Models\Jadwal;
+use App\Models\JadwalPelajaran;
 use Illuminate\Http\Request;
 use App\Models\Guru;
 use DB;
@@ -17,7 +17,7 @@ class JadwalController extends Controller
     public function index()
     {
         
-        $jadwal = Jadwal::all();
+        $jadwal = JadwalPelajaran::all();
         return view('jadwal.jadwal', compact('jadwal'));
     }
 
@@ -89,7 +89,7 @@ class JadwalController extends Controller
      */
     public function edit($id)
     {
-        $row = Jadwal::find($id);
+        $row = JadwalPelajaran::find($id);
         return view('jadwal.form-edit', compact('row'));
     }
 
@@ -117,14 +117,14 @@ class JadwalController extends Controller
             ]
         );
 
-        DB::table('jadwal_pelajaran')->insert(
+        DB::table('jadwal_pelajaran')->where('id', $id)->update(
             [
                 'id_mata_pelajaran' => $request->id_mata_pelajaran,
                 'id_kelas' => $request->id_kelas,
                 'id_guru' => $request->id_guru,
                 'hari' => $request->hari,
                 'waktu' => $request->waktu,
-                'created_at' => now(),
+                'updated_at' => now(),
             ]
         );
 
@@ -137,7 +137,7 @@ class JadwalController extends Controller
      */
     public function destroy($id)
     {
-        Jadwal::where('id', $id)->delete();
+        JadwalPelajaran::where('id', $id)->delete();
         return redirect('/jadwal')
             ->with('success', 'Jadwal Pelajaran Berhasil Dihapus');
     }

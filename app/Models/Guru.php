@@ -11,8 +11,15 @@ class Guru extends Model
     use HasFactory;
 
     protected $table = 'guru';
-    protected $fillable = ['id', 'nip', 'nama_guru', 'foto','role', 'jenis_kelamin', 'id_mapel', 'id_kelas',
-                            'alamat', 'kontak', 'id_agama', 'user_id', 'pendidikan', 'jabatan'];
+    protected $fillable = ['id', 'nip', 'nama_guru', 'foto','role', 'jenis_kelamin', 'id_mapel', 'id_kelas', 'jenis_guru',
+                            'alamat', 'kontak', 'id_agama', 'user_id', 'pendidikan', 'status', 'tahun_pemberhentian', 'jabatan'];
+                            
+    // public function getIdKelasAttribute()
+    // {
+    //     $data_guru = json_decode($this->attributes['data_guru']);
+
+    //     return isset($data_guru->id_kelas) ? $data_guru->id_kelas : null;
+    // }
     public function mata_pelajaran()
     {
         return $this->hasOne(MataPelajaran::class, 'id', 'id_mapel');
@@ -23,7 +30,7 @@ class Guru extends Model
     }
     public function kelas()
     {
-        return $this->hasOne(Kelas::class, 'id', 'id_kelas');
+        return $this->hasMany(Kelas::class);
     }
     // public function kelas_many() 
     // {

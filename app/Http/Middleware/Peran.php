@@ -16,14 +16,14 @@ class Peran
      */
     public function handle(Request $request, Closure $next, $peran): Response
     {
-        // if(Auth::check() && Auth::user()->role == 'peran'){
-        // return $next($request);
-        // }
+        if(Auth::check() && Auth::user()->role == 'peran'){
+        return $next($request);
+        }
 
-        if(Auth::check()){
+        if(auth()->check()){
             $perans = explode('-', $peran);
             foreach ($perans as $group){
-                if(Auth::user()->role == $group ){
+                if(auth()->user()->role == $group ){
                     return $next($request); 
                 } 
             }

@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>DataNet</title>
+    <title>SIA - SDN 02 SIJERUK</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ url('admin/img/favicon.png') }}" rel="icon">
+    <link href="{{ url('img/logo.png') }}" rel="icon">
     <link href="{{ url('admin/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -55,13 +55,13 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Dashboard</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
+            <!--<h1>Dashboard</h1>-->
+            <!--<nav>-->
+            <!--    <ol class="breadcrumb">-->
+            <!--        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a></li>-->
+            <!--        <li class="breadcrumb-item active">Dashboard</li>-->
+            <!--    </ol>-->
+            <!--</nav>-->
         
         @yield('content')
 

@@ -28,7 +28,7 @@ $ar_mapel = App\Models\MataPelajaran::all();
                                 <label class="col-sm-2 col-form-label">Kelas</label>
                                 <div class="col-sm-10">
                                     <select class="form-select @error('id_kelas') is-invalid @enderror" name="id_kelas">
-                                        <option selected>-- Pilih Kelas --</option>
+                                        <option selected disabled>-- Pilih Kelas --</option>
                                         @foreach($ar_kelas as $kls)
                                         @php
                                         $sel2 = (old('id_kelas') == $kls->id)? 'selected':'';
@@ -47,7 +47,7 @@ $ar_mapel = App\Models\MataPelajaran::all();
                                 <label class="col-sm-2 col-form-label">Mata Pelajaran</label>
                                 <div class="col-sm-10">
                                     <select class="form-select @error('id_mata_pelajaran') is-invalid @enderror" name="id_mata_pelajaran">
-                                        <option selected>-- Pilih Mata Pelajaran --</option>
+                                        <option selected disabled>-- Pilih Mata Pelajaran --</option>
                                         @foreach($ar_mapel as $mpl)
                                         @php
                                         $sel3 = (old('id_mata_pelajaran') == $mpl->id)? 'selected':'';
@@ -66,7 +66,7 @@ $ar_mapel = App\Models\MataPelajaran::all();
                                 <label class="col-sm-2 col-form-label">Guru Pengampu</label>
                                 <div class="col-sm-10">
                                     <select class="form-select @error('id_guru') is-invalid @enderror" name="id_guru">
-                                        <option selected>-- Pilih Guru Pengampu --</option>
+                                        <option selected disabled>-- Pilih Guru Pengampu --</option>
                                         @foreach($ar_guru as $gru)
                                         @php
                                         $sel4 = (old('id_guru') == $gru->id)? 'selected':'';
@@ -85,7 +85,7 @@ $ar_mapel = App\Models\MataPelajaran::all();
                                 <label class="col-sm-2 col-form-label">Hari</label>
                                 <div class="col-sm-10">
                                     <select class="form-select @error('hari') is-invalid @enderror" name="hari">
-                                        <option selected>-- Pilih Hari --</option>
+                                        <option selected disabled>-- Pilih Hari --</option>
                                         @foreach($ar_hari as $hari)
                                         @php
                                         $selHari = (old('hari') == $hari)? 'selected':'';

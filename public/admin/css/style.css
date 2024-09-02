@@ -362,8 +362,8 @@ h6 {
 }
 
 .nav-tabs-bordered .nav-link.active {
-  background-color: #fff;
-  color: #4154f1;
+  background-color: #030000;
+  color: #000000;
   border-bottom: 2px solid #4154f1;
 }
 
@@ -714,23 +714,32 @@ h6 {
 }
 
 .sidebar-nav .nav-link.collapsed {
-  color: #012970;
-  background: #fff;
-}
-
-.sidebar-nav .nav-link.collapsed i {
-  color: #899bbd;
-}
-
-.sidebar-nav .nav-link:hover {
   color: #4154f1;
   background: #f6f9ff;
 }
-
+/* 
+.sidebar-nav .nav-link:hover {
+  color: #4154f1;
+  background: #f6f9ff;
+} */
+.required {
+  color: red;
+}
 .sidebar-nav .nav-link:hover i {
   color: #4154f1;
 }
-
+.sidebar-nav .nav-link.active{
+  color: #f6f9ff;
+  transition: 0.3;
+  background: #419cf1;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+.sidebar-nav .nav-link.active .icon{
+  color: #f6f9ff;
+  transition: 0.3;
+  background: #419cf1;
+}
 .sidebar-nav .nav-link .bi-chevron-down {
   margin-right: 0;
   transition: transform 0.2s ease-in-out;

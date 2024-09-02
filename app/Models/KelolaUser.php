@@ -10,7 +10,7 @@ class KelolaUser extends Model
     use HasFactory;
     protected $table = 'users';
 
-    protected $fillable = ['username, password, role, , id_siswa, id_guru, isactive'];
+    protected $fillable = ['id', 'nama', 'username', 'password', 'role' , 'id_siswa', 'id_guru', 'isactive'];
 
     public function users()
     {
@@ -20,8 +20,13 @@ class KelolaUser extends Model
     {
         return $this->belongsTo(Guru::class, 'id_guru', 'id');
     }
+    // public function siswa()
+    // {
+    //     return $this->hasOne(Siswa::class, 'user_id');
+    // }
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class, 'id_siswa', 'id');
+        return $this->belongsTo(Siswa::class, 'id', 'user_id');
     }
+    
 }

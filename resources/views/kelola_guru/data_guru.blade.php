@@ -13,21 +13,22 @@
                 @endif
                 <br />
                 <a href="{{ route('data_guru.create') }}" class="btn btn-primary">Tambah</a>
+                <a href="{{ route('guru.tugas_guru') }}" class="btn btn-secondary">Kelola Tugas Guru</a>
+
                 <br /><br />
-                <table class="table table-borderless datatable">
+                <table class="table table-borderless datatable table-striped">
                     <thead>
                         <tr>
                             <th scope="col">No</th>
+                            <th scope="col">Foto</th>
                             <th scope="col">Nama</th>
                             <th scope="col">NIP</th>
                             <th scope="col">Jenis Kelamin</th>
-                            <th scope="col">Pengampu ( Mata Pelajaran )</th>
-                            <th scope="col">Pengampu ( Guru Kelas )</th>
+                            <th scope="col">Pangkat/Gol. Ruang</th>
+                            <th scope="col">Jenis Guru</th>
+                            <th scope="col">Mengajar Kelas</th>
                             <th scope="col">Alamat</th>
                             <th scope="col">Kontak</th>
-                            <th scope="col">Agama</th>
-                            <th scope="col">Pendidikan</th>
-                            <th scope="col">Jabatan</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
@@ -37,20 +38,39 @@
                         
                         <tr>
                                     <th scope="row">{{ $no++ }}</th>
+                                    <td width="15%">
+                                        @empty($row->foto)
+                                            <img src="{{ url('admin/img/nophoto.png') }}" width="100%" alt="Profile"
+                                                class="rounded-circle">
+                                        @else
+                                            <img src="{{ url('admin/img') }}/{{ $row->foto }}" width="100%" alt="Profile"
+                                                class="rounded-circle">
+                                        @endempty
+                                    </td>
                                     <td>{{ $row->nama_guru }}</td>
                                     <td>{{ $row->nip }}</td>
                                     <td>{{ $row->jenis_kelamin }}</td>
-                                    <td>{{ $row->mata_pelajaran->nama_mapel }}</td>
-                                    <td>{{ $row->kelas->tingkat_kelas  }}</td>
+                                    <td>{{ $row->jabatan }}</td>
+                                    <td>{{ $row->jenis_guru}} {{ optional($row->mata_pelajaran)->nama_mapel }}</td>
+                                    <td>@foreach(json_decode($row->id_kelas) as $kelas_id)
+                                        @php
+                                            $kelas = App\Models\Kelas::find($kelas_id);
+                                        @endphp
+                                        @if($kelas)
+                                        {{ $kelas->tingkat_kelas}}
+                                        @endif
+                                    @endforeach</td>
                                     <td>{{ $row->alamat }}</td>
                                     <td>{{ $row->kontak }}</td>
-                                    <td>{{ $row->agama->agama }}</td>
-                                    <td>{{ $row->pendidikan }}</td>
-                                    <td>{{ $row->jabatan }}</td>
                                     <td width="50%">
                                         <form method="POST" id="formDelete">
                                             @csrf
                                             @method('DELETE')
+                                            <a class="btn btn-info btn-sm" title="Detail Guru"
+                                                href=" {{ route('data_guru.show', $row->id) }}">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            &nbsp;
                                             <a class="btn btn-warning btn-sm" title="Ubah Data Guru"
                                                 href="{{ route('data_guru.edit', $row->id) }}">
                                                 <i class="bi bi-pencil"></i>

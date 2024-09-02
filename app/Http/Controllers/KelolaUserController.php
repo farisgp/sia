@@ -138,6 +138,23 @@ class KelolaUserController extends Controller
             $row = KelolaUser::find($id);
             return view('kelola_user.detail', compact('row'));
         }
+        public function show2($user_id)
+        {
+            $date = date('dMY').'CJ';
+            $hashids = new Hashids($date, 14);
+            $user_id = $hashids->decode($user_id);
+
+            if(!$user_id){return back();}
+
+            $data['user'] = $this->user->find($user_id);
+
+            /* Prevent Other Students from viewing Profile of others*/
+            // if(Auth::user()->id != $user_id && !Qs::userIsTeamSAT() && !Qs::userIsMyChild(Auth::user()->id, $user_id)){
+            //     return redirect(route('dashboard'))->with('pop_error', __('msg.denied'));
+            // }
+
+            return view('profil.index', $data);
+        }
     
         /**
          * Show the form for editing the specified resource.
@@ -164,21 +181,16 @@ class KelolaUserController extends Controller
                 [
                 'username' => 'required',
                 'password' => 'required|min:4',
-                'role' => 'required',
-                'role' => 'required',
                 'id_siswa' => 'nullable',
                 'id_guru' => 'nullable',
-                'isactive' => 'required',
                 ]);
     
             DB::table('users')->where('id', $id)->update(
                 [
-                    'username' => $request->input('username'),
-                    // 'password' => Hash::make($request->input('password')),
-                    'role' => $request->input('role'),
-                    'id_siswa' => $request->input('id_siswa'),
-                    'id_guru' => $request->input('id_guru'),
-                    'isactive' => $request->isactive,
+                    'username' => $request->username,
+                    'password' => Hash::make($request->password),
+                    'id_siswa' => $request->id_siswa,
+                    'id_guru' => $request->id_guru,
                     'updated_at' => now(),
                 ]
             );

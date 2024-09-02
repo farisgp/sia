@@ -22,11 +22,6 @@
                             <button class="btn btn-outline-light rounded-pill">Login</button>
                         </a>
                     </div>
-                    <div class="navbar-nav">
-                        <a href="{{route('register.form')}}" class="nav-link">
-                            <button class="btn btn-outline-light rounded-pill">Register</button>
-                        </a>
-                    </div>
                 </div>
             </nav>
         </div>
@@ -39,8 +34,7 @@
                 <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
                     <div class="btn btn-sm border rounded-pill text-white px-3 mb-3 animated slideInRight">S . I . A</div>
                     <h1 class="display-4 text-white mb-4 animated slideInRight">Sistem Informasi Akademik SDN 02 Sijeruk</h1>
-                    <p class="text-white mb-4 animated slideInRight">Tempor rebum no at dolore lorem clita rebum rebum ipsum
-                        rebum stet dolor sed justo kasd. Ut dolor sed magna dolor sea diam. Sit diam sit</p>
+                    <p class="text-white mb-4 animated slideInRight"></p>
                     <a href="{{url('/login')}}" class="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInRight">Login</a>
                     <!-- <a href="" class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">Login</a> -->
                 </div>

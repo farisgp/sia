@@ -15,7 +15,7 @@ class Kelas extends Model
 
     public function guru()
     {
-        return $this->belongsTo(Guru::class, 'id_guru');
+        return $this->belongsTo(Guru::class);
     }
 
     public function siswa()
@@ -27,9 +27,9 @@ class Kelas extends Model
         return $this->hasMany(Jadwal::class);
     }
 
-    public function nilai() 
+    public function nilai()
     {
-        return $this->hasMany(Nilai::class);
+        return $this->hasMany(Nilai::class, 'id', 'id_kelas');
     }
 
     public function presensi() 

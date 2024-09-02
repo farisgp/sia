@@ -25,7 +25,7 @@ class MataPelajaran extends Model
     }
     public function jadwal()
     {
-        return $this->hasMany(Jadwal::class, 'id');
+        return $this->hasMany(Jadwal::class);
     }
 }
 

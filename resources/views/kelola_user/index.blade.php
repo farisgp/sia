@@ -13,21 +13,14 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <br />
-                    <a href="{{ route('kelola_user.create') }}" class="btn btn-primary">Tambah</a>
-                    <br /><br />
-                    <table class="table table-borderless datatable" style="border:1;">
+                    <table class="table table-borderless datatable table-striped" style="border:1;">
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
+                                <th scope="col">Nama</th>
                                 <th scope="col">Username</th>
-                                <th scope="col">Pengguna (Guru)</th>
-                                <th scope="col">Pengguna (Siswa)</th>
-                                <th scope="col">Isactive</th>
                                 <th scope="col">Role</th>
-                                <th scope="col">Foto</th>
                                 <th scope="col">Aksi</th>
-                                <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,31 +28,20 @@
                             @foreach ($kelola as $row)
                                 <tr>
                                     <th scope="row">{{ $no++ }}</th>
+                                    <td>{{ $row->nama }}</td>
                                     <td>{{ $row->username }}</td>
-                                    <td>{{ $row->guru ? $row->guru->nama_guru : 'Belum Terhubung' }}</td>
-                                    <td>{{ $row->siswa ? $row->siswa->nama_siswa : 'Belum Terhubung' }}</td>
-                                    <td>{{ $row->isactive }}</td>
                                     <td>{{ $row->role }}</td>
-                                    <td width="15%">
-                                        @empty($row->foto)
-                                            <img src="{{ url('admin/img/nophoto.png') }}" width="30%" alt="Profile"
-                                                class="rounded-circle">
-                                        @else
-                                            <img src="{{ url('admin/img') }}/{{ $row->foto }}" width="30%" alt="Profile"
-                                                class="rounded-circle">
-                                        @endempty
-                                    </td>
-                                    <td width="15%">
+                                    <td width="20%">
                                         <form method="POST" id="formDelete">
                                             @csrf
                                             @method('DELETE')
 
-                                            <a class="btn btn-info btn-sm" title="Detail Users"
-                                                href=" {{ route('kelola_user.show', $row->id) }}">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
+                                            <!--<a class="btn btn-info btn-sm" title="Detail Users"-->
+                                            <!--    href=" {{ route('kelola_user.show', $row->id) }}">-->
+                                            <!--    <i class="bi bi-eye"></i>-->
+                                            <!--</a>-->
                                             &nbsp;  
-                                                    <a class="btn btn-warning btn-sm" title="Tambah Data Guru" href="{{ route('kelola_user.edit', $row->id) }}">
+                                                    <a class="btn btn-warning btn-sm" title="Edit Data User" href="{{ route('kelola_user.edit', $row->id) }}">
                                                         <i class="bi bi-pencil"></i>
                                                     </a>
                                             &nbsp;
@@ -68,19 +50,6 @@
                                                 class="btn btn-danger btn-sm btnDelete" title="Hapus Users">
                                                 <i class="bi bi-trash"></i>
                                             </button>
-                                        </form>
-                                    </td>
-                                    <td width="15%">
-                                        <form method="POST" action="{{ route('kelola_user.update', $row->id) }}"
-                                            class="mt-2" enctype="multipart/form-data">
-                                            @csrf
-                                            @method('PUT')
-                                            <select name="isactive" onchange="this.form.submit()"
-                                                class="btn btn-warning btn-sm">
-                                                <option class="bg-light">Status</option>
-                                                <option value="1" class="bg-light">Accept</option>
-                                                <option value="0" class="bg-light">Reject</option>
-                                            </select>
                                         </form>
                                     </td>
                                 </tr>

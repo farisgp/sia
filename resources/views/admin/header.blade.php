@@ -1,4 +1,7 @@
 <!-- ======= Header ======= -->
+@php
+use App\Helpers\Qs;
+@endphp
 <header id="header" class="header fixed-top d-flex align-items-center">
 
 <div class="d-flex align-items-center justify-content-between">
@@ -15,8 +18,22 @@
     <li class="nav-item dropdown pe-3">
 
       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-        
+                @if(auth()->user()->role == 'guru')
+                    @empty(auth()->user()->guru->foto)
+                        <img src="{{ url('admin/img/nophoto.png') }}" alt="Profile" class="rounded-circle">
+                    @else
+                        <img src="{{ url('admin/img') }}/{{  auth()->user()->guru->foto }}" alt="Profile" class="rounded-circle">
+                    @endempty
+                @elseif(auth()->user()->role == 'siswa')
+                     @empty(auth()->user()->siswa->foto)
+                        <img src="{{ url('admin/img/nophoto.png') }}" alt="Profile" class="rounded-circle">
+                    @else
+                        <img src="{{ url('admin/img') }}/{{  auth()->user()->siswa->foto }}" alt="Profile" class="rounded-circle">
+                    @endempty
+                @endif
+
         <span class="d-none d-md-block dropdown-toggle ps-2">
+            
           @if(empty(auth()->user()->username))
             {{ '' }}
             @else
@@ -26,6 +43,20 @@
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li class="dropdown-header">
+                @if(auth()->user()->role == 'guru')
+                    @empty(auth()->user()->guru->foto)
+                        <img src="{{ url('admin/img/nophoto.png') }}" style="max-width:40%; max-height:40%"alt="Profile" class="rounded-circle">
+                    @else
+                        <img src="{{ url('admin/img') }}/{{  auth()->user()->guru->foto }}" style="max-width:40%; max-height:40%" alt="Profile" class="rounded-circle">
+                    @endempty
+                @endif
+                @if(auth()->user()->role == 'siswa')
+                    @empty(auth()->user()->siswa->foto)
+                        <img src="{{ url('admin/img/nophoto.png') }}" style="max-width:40%; max-height:40%" alt="Profile" class="rounded-circle">
+                    @else
+                        <img src="{{ url('admin/img') }}/{{  auth()->user()->siswa->foto }}" style="max-width:40%; max-height:40%" alt="Profile" class="rounded-circle">
+                    @endempty
+                @endif
         @auth
           <h6>{{ auth()->user()->username }}</h6>
           <span>{{ auth()->user()->role }}</span>
@@ -37,9 +68,15 @@
         @auth
           @if(auth()->user()->role == 'guru')
           <li>
-            <a class="dropdown-item d-flex align-items-center" href="{{ route('profil.index') }}">
+            <a class="dropdown-item d-flex align-items-center" href="{{ route('data_guru.detail', Qs::hash(Qs::findGuruRecord(auth()->user()->id)->id)) }}" >
               <i class="bi bi-person"></i>
               <span>My Profile</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{{ route('setting') }}" >
+              <i class="bi bi-gear"></i>
+              <span>Setting</span>
             </a>
           </li>
           <li>
@@ -47,9 +84,15 @@
           </li>
           @elseif(auth()->user()->role == 'siswa')
           <li>
-            <a class="dropdown-item d-flex align-items-center" href="{{ route('info_siswa') }}">
+            <a class="dropdown-item d-flex align-items-center" href="{{ route('data_siswa.detail', Qs::hash(Qs::findStudentRecord(auth()->user()->id)->id)) }}" >
               <i class="bi bi-person"></i>
               <span>My Profile</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{{ route('setting') }}" >
+              <i class="bi bi-gear"></i>
+              <span>Setting</span>
             </a>
           </li>
           <li>

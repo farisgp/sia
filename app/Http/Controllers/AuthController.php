@@ -2,15 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Qs;
 use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Guru;
+use App\Repositories\UserRepo;
+use App\Http\Requests\UserChangePass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    protected $user;
+
+    public function __construct(UserRepo $user)
+    {
+        $this->user = $user;
+    }
+    public function edit_profile()
+    {
+        $d['my'] = auth()->user();
+        return view('kelola_user.change_pass', $d);
+    }
+
+    public function change_pass(UserChangePass $req)
+    {
+        $user_id = auth()->user()->id;
+        // dd($user_id);
+        $my_pass = auth()->user()->password;
+        $old_pass = $req->current_password;
+        $new_pass = $req->password;
+        
+        if(password_verify($old_pass, $my_pass)){
+            $data['password'] = Hash::make($new_pass);
+            $this->user->update($user_id, $data);
+            return back()->with('success', 'Password Berhasil Diubah');
+        }
+
+        return back()->with('error', 'Gagal Mengubah Password');
+    }
     public function showRegisterForm()
     {
         $gurus = Guru::all();
@@ -23,36 +54,23 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('landingpage')->with('success', 'Logout Berhasil!');
     }
-    public function register(Request $request)
+    public function store(Request $request)
     {
         // Validasi input
         $request->validate([
+            'nama' => 'required',
             'username' => 'required|unique:users|max:15',
             'password' => 'required|min:6',
             'role'     => 'required|in:admin,siswa,guru',
-            'id_guru'     => 'required_if:role,guru,siswa',
-            'id_siswa'     => 'required_if:role,guru,siswa',
         ]);
 
         // Buat user baru
         $user = new User;
+        $user->nama = $request->input('nama');
         $user->username = $request->input('username');
         $user->password = bcrypt($request->input('password'));
         $user->role = $request->input('role');
-
-        if ($request->input('role') == 'guru') {
-            $user->nama = $request->input('nama_guru');
-        }elseif($request->input('role') == 'siswa'){
-            $user->nama = $request->input('nama_siswa');
-        }
-    
         $user->save();
-        $guru = new Guru([
-            'id_guru' => $user->id,
-            // tambahkan kolom lain sesuai kebutuhan
-        ]);
-    
-        $user->guru()->save($guru);
 
         // Redirect ke halaman login atau sesuai kebutuhan
         return redirect('/kelola_user')->with('success', 'Registrasi berhasil!');

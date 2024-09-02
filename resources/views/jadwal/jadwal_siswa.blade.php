@@ -4,35 +4,33 @@
     <div class="col-12">
         <div class="card recent-sales overflow-auto">
             <div class="card-body">
-                <h5 class="card-title">Daftar Mata Pelajaran</h5>
+                <h5 class="card-title">Jadwal Pelajaran</h5>
                 <br /><br />
-                    <table class="table table-borderless datatable">
-                        <thead>
-                            <tr>
-                                <th scope="col" rowspan="2">No</th>
-                                <th scope="col" rowspan="2">Mata Pelajaran</th>
-                                <th scope="col" rowspan="2">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php $no= 1; 
-                            @endphp
-                            @foreach ($mapel as $row)
-                                <tr>
+                <table class="table table-borderless datatable">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Kelas</th>
+                            <th scope="col">Mata Pelajaran</th>
+                            <th scope="col">Guru Pengampu</th>
+                            <th scope="col">Hari</th>
+                            <th scope="col">Pukul</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $no= 1; @endphp
+                        @foreach ($row as $row)
+                        <tr>
                                     <th scope="row">{{ $no++ }}</th>
-                                    <td>{{ $row->nama_mapel }}</td>
-                                    <td width="50%">
-                                        <form method="POST" id="formDelete">
-                                            <a class="btn btn-primary btn-sm" title="Tambah Nilai"
-                                                href="{{ route('nilai.create.mapel',$row->id) }}">
-                                                <i class="bi bi-plus"></i>
-                                            </a>
-                                        </form>
-                                    </td>
+                                    <td>{{ $row->kelas->tingkat_kelas }}</td>
+                                    <td>{{ $row->mata_pelajaran->nama_mapel }}</td>
+                                    <td>{{ $row->guru->nama_guru }}</td>
+                                    <td>{{ $row->hari }}</td>
+                                    <td>{{ $row->waktu }}</td>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

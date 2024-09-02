@@ -11,7 +11,7 @@ class Siswa extends Model
 
     protected $table = 'siswa';
     protected $fillable = ['id', 'nama', 'nis', 'nisn','foto', 'nama_siswa', 'jenis_kelamin',
-                            'tanggal_lahir', 'id_kelas', 'alamat', 'kontak_ortu', 'id_agama'];
+                            'tanggal_lahir', 'id_kelas', 'user_id', 'alamat', 'kontak_ortu', 'id_agama', 'tahun_ajaran', 'tahun_lulus', 'status'];
 
     public function presensi() 
     {
@@ -39,13 +39,16 @@ class Siswa extends Model
     {
         return $this->hasOne(Agama::class, 'id', 'id_agama');
     }
-    public function users()
-    {
-        return $this->hasOne(User::class, 'id_siswa');
-    }
-    
+    // public function users()
+    // {
+    //     return $this->hasOne(User::class, 'id_siswa');
+    // }
     public function kelola()
     {
-        return $this->hasOne(KelolaUser::class, 'id_siswa', 'id');
+        return $this->hasOne(KelolaUser::class, 'id', 'user_id');
     }
+    // public function kelola()
+    // {
+    //     return $this->belongsTo(KelolaUser::class, 'user_id', 'id');
+    // }
 }
