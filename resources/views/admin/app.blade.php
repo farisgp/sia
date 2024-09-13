@@ -40,6 +40,7 @@
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <!-- ======= Header ======= -->
     @include('admin.header')
     <!-- End Header -->

@@ -16,9 +16,9 @@ class Peran
      */
     public function handle(Request $request, Closure $next, $peran): Response
     {
-        if(Auth::check() && Auth::user()->role == 'peran'){
-        return $next($request);
-        }
+        // if(Auth::check() && Auth::user()->role == 'peran'){
+        // return $next($request);
+        // }
 
         if(auth()->check()){
             $perans = explode('-', $peran);
@@ -28,6 +28,7 @@ class Peran
                 } 
             }
         }
-        return $next('/access-denied');
+        // return $next('/access-denied');
+        return redirect('/access-denied');
     }
 }

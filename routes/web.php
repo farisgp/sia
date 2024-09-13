@@ -53,11 +53,12 @@ Route::middleware('auth')->group(function(){
     Route::resource('data_siswa', SiswaController::class);
     Route::resource('data_guru', GuruController::class);
     Route::resource('presensi', PresensiController::class);
-    Route::resource('jadwal', JadwalController::class);
     Route::resource('nilai', NilaiController::class);
     Route::resource('kelola_user', KelolaUserController::class);
     
-    // Route::group(['middleware'=>['admin']], function(){
+    Route::group(['middleware'=>['peran:admin']], function(){
+        Route::resource('jadwal', JadwalController::class);
+
         Route::get('siswa_admin', [SiswaController::class, 'index'])->name('siswa.index');
 
         //--------setting aplikasi--------
@@ -76,8 +77,8 @@ Route::middleware('auth')->group(function(){
         Route::delete('promotion/reset_all', [SiswaController::class, 'reset_all'])->name('siswa.promotion_reset_all');
         Route::get('promotion/{kelas_lama?}/{kelas_baru?}', [SiswaController::class, 'promotion'])->name('siswa.promotion');
         Route::post('promote/{kelas_lama}/{kelas_baru}', [SiswaController::class, 'promote'])->name('siswa.promote');
-    // });
-    // Route::middleware(['peran:guru'])->group(function(){
+    });
+    Route::group(['middleware'=>['peran:guru-admin']], function(){
         Route::get('data_guru_detail/{id}', [GuruController::class, 'detail'])->name('data_guru.detail');
         Route::get('siswa_guru', [SiswaController::class, 'index_siswa'])->name('siswa.index_siswa');
         Route::get('siswa_kepsek', [GuruController::class, 'index_guru'])->name('siswa.index_guru');
@@ -96,16 +97,7 @@ Route::middleware('auth')->group(function(){
         Route::post('selector', [App\Http\Controllers\NilaiController::class, 'selector'])->name('nilai.selector');
         Route::get('bulk/{kelas?}', [App\Http\Controllers\NilaiController::class, 'bulk'])->name('nilai.bulk');
         Route::post('bulk', [App\Http\Controllers\NilaiController::class, 'bulk_select'])->name('nilai.bulk_select');
-        
-        Route::get('select_year/{id}', [App\Http\Controllers\NilaiController::class, 'year_selector'])->name('nilai.year_selector');
-        Route::post('select_year/{id}', [App\Http\Controllers\NilaiController::class, 'year_selected'])->name('nilai.year_select');
-        Route::get('show/{id}/{year}', [App\Http\Controllers\NilaiController::class, 'show'])->name('nilai.show');
-        // -------------PDF EXCEL-----------
-        Route::get('generate-pdf/{id}/{year}', [App\Http\Controllers\NilaiController::class, 'generatePDF']);
-        Route::get('generate-excel/{id}/{year}', [App\Http\Controllers\NilaiController::class, 'generateExcel']);
-        Route::get('tesPDF', [App\Http\Controllers\NilaiController::class, 'tesPDF']);
-    // });
-    // Route::middleware(['peran:guru-admin'])->group(function(){
+
         Route::get('generate-pdf-siswa', [App\Http\Controllers\SiswaController::class, 'generatePDFSiswa'])->name('generatePDFSiswa');
         Route::get('generate-pdf-kelulusan-siswa', [App\Http\Controllers\SiswaController::class, 'generatePDFKelulusanSiswa'])->name('generatePDFKelulusanSiswa');
         Route::get('generate-excel-siswa', [App\Http\Controllers\SiswaController::class, 'generateExcelSiswa'])->name('generateExcelSiswa');
@@ -113,8 +105,17 @@ Route::middleware('auth')->group(function(){
 
         Route::get('generate-pdf-guru', [App\Http\Controllers\GuruController::class, 'generatePDFGuru'])->name('generatePDFGuru');
         Route::get('generate-excel-guru', [App\Http\Controllers\GuruController::class, 'generateExcelGuru'])->name('generateExcelGuru');
-    // });
-    // Route::middleware(['peran:guru-siswa'])->group(function(){
+    });
+    Route::group(['middleware'=>['peran:guru-siswa-admin']], function(){ 
+        Route::get('select_year/{id}', [App\Http\Controllers\NilaiController::class, 'year_selector'])->name('nilai.year_selector');
+        Route::post('select_year/{id}', [App\Http\Controllers\NilaiController::class, 'year_selected'])->name('nilai.year_select');
+        Route::get('show/{id}/{year}', [App\Http\Controllers\NilaiController::class, 'show'])->name('nilai.show');
+        // -------------PDF EXCEL-----------
+        Route::get('generate-pdf/{id}/{year}', [App\Http\Controllers\NilaiController::class, 'generatePDF']);
+        Route::get('generate-excel/{id}/{year}', [App\Http\Controllers\NilaiController::class, 'generateExcel']);
+        Route::get('tesPDF', [App\Http\Controllers\NilaiController::class, 'tesPDF']);
+    });
+    Route::group(['middleware'=>['peran:guru-siswa']], function(){
         Route::get('/info_guru', [App\Http\Controllers\GuruController::class, 'biodata'])->name('info_guru');
         Route::get('/info_siswa', [App\Http\Controllers\SiswaController::class, 'biodata']);
         Route::get('data_siswa_detail/{id}', [SiswaController::class, 'detail'])->name('data_siswa.detail');
@@ -128,7 +129,7 @@ Route::middleware('auth')->group(function(){
 
         Route::get('profil_siswa/{id}', [ProfilController::class, 'profil_siswa'])->name('profil_siswa.index');
         Route::get('profil_guru/{id}', [ProfilController::class, 'profil_guru'])->name('profil_guru.index');
-    // });
+    });
 });
 
 // Route::get('/profile_guru', [App\Http\Controllers\KelolaUserController::class, 'profile_guru'])->name('profile_guru');
