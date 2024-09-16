@@ -7,6 +7,8 @@
 ``` cd sia ```
 - Install package composer yang diperlukan      
 ``` composer install ```
+- Copy .env.example      
+``` cp .env.example .env ```
 - Generate Kunci Aplikasi     
 ``` php artisan key:generate ```
 - Buat database MySQL baru dengan nama *“sia”* (sesuai dengan .env)        
