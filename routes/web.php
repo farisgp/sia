@@ -139,3 +139,6 @@ Route::middleware('auth')->group(function(){
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
+Route::get('/api-guru', [GuruController::class, 'apiGuru']);
+Route::get('/api-guru/{id}', [GuruController::class, 'apiGuruDetail']);
+

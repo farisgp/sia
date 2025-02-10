@@ -42,6 +42,35 @@ class GuruController extends Controller
 
        // $this->middleware('teamSAT', ['except' => ['show', 'year_selected', 'year_selector', 'print_view'] ]);
     }
+    public function apiGuru()
+    {
+        $guru = Guru::all();
+        return response()->json(
+            [
+                'success'=> true,
+                'message' => 'Data Guru Berhasil Di Tampilkan',
+                'data' => $guru,
+            ], 200);
+    }
+    public function apiGuruDetail($id)
+    {
+        $guru = Guru::find($id);
+        if ($guru) {
+            return response()->json(
+                [
+                    'success'=> true,
+                    'message' => 'Data Guru Berhasil Di Tampilkan',
+                    'data' => $guru,
+                ], 200);
+        }else{
+            return response()->json(
+                [
+                    'success'=> false,
+                    'message' => 'Data Guru Tidak Ditemukan'
+                ], 404);
+        }
+        
+    }
     public function index()
     {
         // $id_guru = Auth::id();

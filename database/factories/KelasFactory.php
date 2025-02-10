@@ -21,12 +21,12 @@ class KelasFactory extends Factory
 
     public function definition()
     {
-        $idGuru = $this->faker->randomElement([null, Guru::pluck('id')->random()]);
+        // $idGuru = $this->faker->randomElement([null, Guru::pluck('id')->random()]);
         return [
-            'tingkat_kelas' => $this->faker->numberBetween(0, 12),
-            'id_guru' => idGuru, 
-            'created_at' => now(),
-            'updated_at' => now(),
+            'tingkat_kelas' => 'Kelas ' .faker()->numberBetween(1, 6),
+            // 'id_guru' => idGuru, 
+            // 'created_at' => now(),
+            // 'updated_at' => now(),
         ];
     }
     
