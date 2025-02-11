@@ -11,19 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('guru_promotions', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('username');
-            $table->string('password');
-            $table->enum('role', ['admin', 'siswa', 'guru']);
-            $table->tinyInteger('isactive')->default(1);
-
-            $table->unsignedBigInteger('id_siswa');
-            $table->foreign('id_siswa')->references('id')->on('siswa');
-
             $table->unsignedBigInteger('id_guru');
             $table->foreign('id_guru')->references('id')->on('guru');
+
+            $table->string('status');
+            $table->string('tahun_pemberhentian');
+
             // $table->rememberToken();
             $table->timestamps();
         });
@@ -34,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('guru_promotions');
     }
 };

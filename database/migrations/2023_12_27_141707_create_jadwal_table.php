@@ -21,9 +21,9 @@ return new class extends Migration
 
             $table->unsignedBigInteger('id_guru');
             $table->foreign('id_guru')->references('id')->on('guru');
-            $table->string('hari');
-            $table->time('jam_mulai');
-            $table->time('jam_selesai');
+            $table->enum('hari', ['Senin', 'Selasa', 
+                        'Rabu', 'Kamis', 'Jumat', 'Sabtu']);
+            $table->time('waktu');
             $table->timestamps();
         });
     }

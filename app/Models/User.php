@@ -18,11 +18,16 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'nama',
         'username',
         // 'email',
         'password',
         'role',
+        'isactive',
+        'id_siswa',
+        'id_guru',
+        
     ];
 
     /**
@@ -51,10 +56,10 @@ class User extends Authenticatable
     // }
     public function guru()
     {
-        return $this->belongsTo(Guru::class, 'id_guru');
+        return $this->hasMany(Guru::class, 'id_guru');
     }
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class, 'id_siswa');
+        return $this->hasMany(Siswa::class, 'id_siswa');
     }
 }
