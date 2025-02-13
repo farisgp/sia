@@ -26,7 +26,7 @@ class Guru extends Model
     }
     public function jadwal()
     {
-        return $this->hasMany(Jadwal::class, 'id');
+        return $this->hasMany(JadwalPelajaran::class, 'id');
     }
     public function kelas()
     {
